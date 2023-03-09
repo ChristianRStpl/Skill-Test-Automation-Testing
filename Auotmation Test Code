@@ -1,0 +1,37 @@
+Automation code file using Robot Framework: 
+JSON: {
+  "C_URL": "https://www.demoblaze.com/index.html#"
+}
+tASK.ROBOT: 
+*** Settings ***
+Documentation       Template robot main suite.
+
+Library             Collections
+Library             MyLibrary
+Library             RPA.Browser
+Library             RPA.Excel.Files
+Resource            keywords.robot
+Variables           variables.py
+
+*** Keyword ***
+
+Read Excel
+   
+    Open Workbook  E:\Christian Sitompul\Dokumen Christian\Test Perusahaan\Refactory\Test.xlsx
+    ${list} Read Worksheet   header=True
+    Log To Console  ${list}
+    close Workbook
+    FOR ${index} IN @{list}
+        Search Phones
+    END
+
+Search Phones
+    Go To %{C_URL}
+    Maximize Browser Window
+    
+
+*** Tasks ***
+Main
+    Open Available Browser
+    Read Excel
+
